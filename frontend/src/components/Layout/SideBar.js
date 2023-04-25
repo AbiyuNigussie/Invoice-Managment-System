@@ -40,51 +40,53 @@ const SideBar = (props) => {
   const [expanded, dispatch] = useReducer(reducer, initialValues);
 
   return (
-    <div className="container flex flex-col gap-6  pt-10 fixed box-border h-full w-48 z-1 bg-slate-950 text-gray-300  max-md:hover:w-48 max-md:justify-items-center transition-all ease-in-out duration-500 ">
-      <div className="flex flex-col">
-        <div
-          className="flex gap-2 pl-4 py-2 items-center hover:bg-slate-800 hover:text-white"
-          onClick={() => dispatch({ expansion: true, id: 1 })}
-        >
-          <MdOutlineCreate className="h-8 w-8 " />
-          <p className="text-l">Create</p>
-          {expanded[0].isExpanded ? (
-            <MdExpandLess className="absolute right-3" />
-          ) : (
-            <MdExpandMore className="absolute right-3" />
-          )}
+    <div className="shrink-[5] container flex flex-col gap-6 bg-slate-950 text-gray-300  max-md:hover:w-48 max-md:justify-items-center transition-all ease-in-out duration-500 ">
+      <div className="container mt-32">
+        <div className="flex flex-col">
+          <div
+            className="flex gap-2 pl-4 py-2 items-center hover:bg-slate-800 hover:text-white"
+            onClick={() => dispatch({ expansion: true, id: 1 })}
+          >
+            <MdOutlineCreate className="h-8 w-8 " />
+            <p className="text-l">Create</p>
+            {expanded[0].isExpanded ? (
+              <MdExpandLess className="ml-auto mr-5" />
+            ) : (
+              <MdExpandMore className="ml-auto mr-5" />
+            )}
+          </div>
+          {expanded[0].isExpanded ? <CreateSubNav /> : ""}
         </div>
-        {expanded[0].isExpanded ? <CreateSubNav /> : ""}
-      </div>
-      <div className="flex flex-col">
-        <div
-          className="flex gap-2 pl-4 py-2 items-center hover:bg-slate-800 hover:text-white"
-          onClick={() => dispatch({ expansion: true, id: 2 })}
-        >
-          <BsDatabase className="h-8 w-8 " />
-          <p className="text-l">Records</p>
-          {expanded[1].isExpanded ? (
-            <MdExpandLess className="absolute right-3" />
-          ) : (
-            <MdExpandMore className="absolute right-3" />
-          )}
+        <div className="flex flex-col">
+          <div
+            className="flex gap-2 pl-4 py-2 items-center hover:bg-slate-800 hover:text-white"
+            onClick={() => dispatch({ expansion: true, id: 2 })}
+          >
+            <BsDatabase className="h-8 w-8 " />
+            <p className="text-l">Records</p>
+            {expanded[1].isExpanded ? (
+              <MdExpandLess className="ml-auto mr-5" />
+            ) : (
+              <MdExpandMore className="ml-auto mr-5" />
+            )}
+          </div>
+          {expanded[1].isExpanded ? <RecordsSubNav /> : ""}
         </div>
-        {expanded[1].isExpanded ? <RecordsSubNav /> : ""}
-      </div>
-      <div className="flex flex-col">
-        <div
-          className="flex gap-2 pl-4 py-2 items-center hover:bg-slate-800 hover:text-white"
-          onClick={() => dispatch({ expansion: true, id: 3 })}
-        >
-          <TbReportAnalytics className="h-8 w-8" />
-          <p className="text-l">Report</p>
-          {expanded[2].isExpanded ? (
-            <MdExpandLess className="absolute right-3" />
-          ) : (
-            <MdExpandMore className="absolute right-3" />
-          )}
+        <div className="flex flex-col">
+          <div
+            className="flex gap-2 pl-4 py-2 items-center hover:bg-slate-800 hover:text-white"
+            onClick={() => dispatch({ expansion: true, id: 3 })}
+          >
+            <TbReportAnalytics className="h-8 w-8" />
+            <p className="text-l">Report</p>
+            {expanded[2].isExpanded ? (
+              <MdExpandLess className="ml-auto mr-5" />
+            ) : (
+              <MdExpandMore className="ml-auto mr-5" />
+            )}
+          </div>
+          {expanded[2].isExpanded ? <ReportSubNav /> : ""}
         </div>
-        {expanded[2].isExpanded ? <ReportSubNav /> : ""}
       </div>
     </div>
   );
