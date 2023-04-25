@@ -4,11 +4,13 @@ import Footer from "./Footer";
 import SideBar from "./SideBar";
 const Layout = ({ children }) => {
   return (
-    <div className="container">
+    <div className="container flex flex-col h-full">
       <Header />
-      <SideBar />
-      {children}
-      {/* <Footer /> */}
+      <div className="container flex h-full">
+        <SideBar />
+        {children}
+        {/* <Footer /> */}
+      </div>
     </div>
   );
 };
