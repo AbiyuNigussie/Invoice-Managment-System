@@ -15,9 +15,6 @@ const CreateProductPage = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  // useEffect(() => {
-  //   console.log(inputs);
-  // }, [inputs]);
   return (
     <div className="container bg-white pt-14 overflow-y-auto">
       <div className="container flex px-6 py-3 gap-2 items-center text-sky-500">
