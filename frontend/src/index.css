@@ -27,3 +27,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.reactDatalist_input {
+  outline: none;
+  border: 1px solid rgb(2 6 23 / var(--tw-border-opacity));
+  border-radius: 0.375rem;
+  height: 30px;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  height: 2.5rem;
+  padding: 0 0.75rem; 
+}
+
+.reactDatalist_show {
+  overflow-y: scroll;
+  max-height: 100px;
+}
+.reactDatalist_hide {
+  /* overflow-y: scroll; */
+}
+.reactDatalist_options {
+  /* overflow-y: scroll; */
+}
+.reactDatalist_options_list {
+  /* overflow-y: scroll; */
+
+}
