@@ -41,7 +41,7 @@ const SideBar = (props) => {
 
   return (
     <div className="shrink-[5] container flex flex-col gap-6 bg-slate-950 text-gray-300  max-md:hover:w-48 max-md:justify-items-center transition-all ease-in-out duration-500 ">
-      <div className="container mt-32">
+      <div className="container mt-10">
         <div className="flex flex-col">
           <div
             className="flex gap-2 pl-4 py-2 items-center hover:bg-slate-800 hover:text-white"
