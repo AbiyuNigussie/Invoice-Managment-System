@@ -4,9 +4,9 @@ import Footer from "./Footer";
 import SideBar from "./SideBar";
 const Layout = ({ children }) => {
   return (
-    <div className="container flex flex-col h-full">
+    <div className="flex flex-col h-full">
       <Header />
-      <div className="container flex h-full">
+      <div className=" flex h-full">
         <SideBar />
         {children}
         {/* <Footer /> */}
