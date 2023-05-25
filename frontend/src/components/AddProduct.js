@@ -3,7 +3,8 @@ import { IoIosAdd } from "react-icons/io";
 import { DataList } from "react-datalist-field";
 
 const AddProduct = (props) => {
-  const [currentId, setCurrentId] = useState(1);
+  const [currentId, setCurrentId] = useState(0);
+  const [total, settotal] = useState(0);
   const onAdd = () => {
     props.setSelectedProducts([
       ...props.selectedProducts,
@@ -12,6 +13,14 @@ const AddProduct = (props) => {
     setCurrentId(currentId + 1);
     console.log(props.selectedProduct);
     console.log(props.selectedProducts);
+  };
+
+  const onDelete = (event) => {
+    const value = parseInt(event.target.id);
+    console.log(value);
+    props.setSelectedProducts((prevStates) =>
+      prevStates.filter((item) => item.id !== value)
+    );
   };
 
   const handleChange = (event) => {
@@ -30,13 +39,20 @@ const AddProduct = (props) => {
       ...updatedValue,
     });
   };
+  useEffect(() => {
+    settotal(
+      props.selectedProducts.reduce((a, b) => {
+        return a + b.quantity * b.price;
+      }, 0)
+    );
+  }, [props.selectedProducts]);
 
   return (
     <div className="flex flex-col gap-8 p-10 border-solid border border-sky-500 rounded-md mb-[100vh]">
       <div>
         <p className="text-2xl text-gray-500 font-sans">PRODUCTS</p>
       </div>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-10 relative">
         <div className="flex flex-col gap-y-2">
           <p className="pl-4 text-xl text-slate-800 inline-block font-sans">
             Add Products
@@ -67,36 +83,45 @@ const AddProduct = (props) => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col border border-slate-800 rounded-md">
-          <div className="flex t-head px-3">
-            <div className="container text-center font-bold border-r border-r-slate-500 py-3">
+        <div className="flex flex-col border border-slate-300 rounded-sm h-80 max-h-80 overflow-y-scroll">
+          <div className="flex t-head px-3 sticky top-0 bg-slate-50">
+            <div className="container text-center font-bold py-3">
               Product Name
             </div>
-            <div className="container text-center font-bold border-r border-r-slate-500 py-3">
-              Price
-            </div>
+            <div className="container text-center font-bold py-3">Price</div>
             <div className="container text-center font-bold py-3">Quantity</div>
+            <div className="container text-center font-bold py-3">Actions</div>
           </div>
           {props.selectedProducts &&
             props.selectedProducts.map((item, id) => (
-              <div key={id} className="flex border-t border-t-slate-500  px-3">
-                <div
-                  key={id}
-                  className="container text-left border-r border-r-slate-500"
-                >
+              <div key={id} className="flex border-t border-t-slate-300  px-3">
+                <div key={id} className="container text-center py-3">
                   {item.name}
                 </div>
-                <div
-                  key={id + 2}
-                  className="container text-center border-r border-r-slate-500"
-                >
-                  {item.price}
+                <div key={id + 1} className="container text-center py-3">
+                  {item.price} Birr
                 </div>
-                <div key={id + 1} className="container text-center">
+                <div key={id + 2} className="container text-center py-3">
                   {item.quantity}
+                </div>
+                <div key={id + 3} className="container text-center py-3">
+                  <button
+                    className="bg-red-600 text-slate-50 px-3 py-1 rounded-md"
+                    onClick={onDelete}
+                    id={item.id}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             ))}
+        </div>
+        <div className="container flex flex-col">
+          <p>Total: {total.toFixed(2)} Birr</p>
+          <p>Tax(15%): {(total * 0.15).toFixed(2)} Birr </p>
+          <p className="font-bold">
+            total: {(total - total * 0.15).toFixed(2)} Birr
+          </p>
         </div>
       </div>
     </div>

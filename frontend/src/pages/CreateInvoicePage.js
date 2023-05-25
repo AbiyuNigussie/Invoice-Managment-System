@@ -21,13 +21,13 @@ const CreateInvoicePage = () => {
     });
   }, []);
   return (
-    <div className="container bg-white pt-14 overflow-y-auto h-full">
+    <div className="container bg-[#f5f7fa] pt-14 overflow-y-auto h-full">
       <div className="container flex px-6 py-3 gap-2 items-center text-sky-500">
         <IoIosAdd className="h-10 w-10" />
         <p className="text-3xl font-serif">Create Invoice</p>
       </div>
       <form
-        className="mx-5 my-2 px-4 py-5 border flex flex-col gap-10"
+        className="bg-[#fff] mx-5 my-2 px-4 py-5 border flex flex-col gap-10"
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col gap-8 p-10 border-solid border border-sky-500 rounded-md">
