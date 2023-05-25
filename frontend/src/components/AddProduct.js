@@ -3,25 +3,32 @@ import { IoIosAdd } from "react-icons/io";
 import { DataList } from "react-datalist-field";
 
 const AddProduct = (props) => {
+  const [currentId, setCurrentId] = useState(1);
   const onAdd = () => {
-    if (props.selectedProducts.includes(props.selectedProduct)) {
-      return 0;
-    } else {
-      props.setSelectedProducts([
-        ...props.selectedProducts,
-        props.selectedProduct,
-      ]);
-      console.log(props.selectedProduct);
-      console.log(props.selectedProducts);
-    }
+    props.setSelectedProducts([
+      ...props.selectedProducts,
+      { ...props.selectedProduct, id: currentId },
+    ]);
+    setCurrentId(currentId + 1);
+    console.log(props.selectedProduct);
+    console.log(props.selectedProducts);
   };
 
   const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
+    const selectedElement = document.getElementsByName("selectedCard")[0];
     const updatedValue = {};
-    updatedValue[name] = value;
-    props.setSelectedProduct({ ...props.selectedProduct, ...updatedValue });
+
+    if (event) {
+      const name = event.target.name || "";
+      const value = event.target.value || "";
+      updatedValue[name] = value;
+    }
+
+    props.setSelectedProduct({
+      ...props.selectedProduct,
+      ...props.products[selectedElement.value - 1],
+      ...updatedValue,
+    });
   };
 
   return (
@@ -41,14 +48,7 @@ const AddProduct = (props) => {
               left="name"
               selectedId=""
               selectedIdName="selectedCard"
-              onOptionChange={() => {
-                const selectedElement =
-                  document.getElementsByName("selectedCard")[0];
-                // console.log(selectedElement);
-                props.setSelectedProduct(
-                  props.products[selectedElement.value - 1]
-                );
-              }}
+              onOptionChange={handleChange}
             />
             <input
               type="number"
