@@ -7,10 +7,24 @@ const CreateInvoicePage = () => {
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
-  const handleChange = () => {};
+  const [alldata, setAllData] = useState({});
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setAllData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // setAllData((prevState) => ({
+    //   ...prevState,
+    //   selectedProducts: selectedProducts,
+    // }));
+    console.log(alldata);
   };
 
   useEffect(() => {
@@ -32,7 +46,9 @@ const CreateInvoicePage = () => {
       >
         <div className="flex flex-col gap-8 p-10 border-solid border border-sky-500 rounded-md">
           <div>
-            <p className="text-2xl text-gray-500 font-sans">CUSTOMER INFO</p>
+            <p className="text-2xl first-letter text-grey-500 font-sans">
+              CUSTOMER INFO
+            </p>
           </div>
           <div className="flex flex-col gap-1 w-1/3">
             <label className="pl-4 text-l text-slate-800 inline-block font-sans">
@@ -71,6 +87,7 @@ const CreateInvoicePage = () => {
             />
           </div>
         </div>
+
         <AddProduct
           products={products}
           setProducts={setProducts}
@@ -78,7 +95,20 @@ const CreateInvoicePage = () => {
           setSelectedProduct={setSelectedProduct}
           selectedProducts={selectedProducts}
           setSelectedProducts={setSelectedProducts}
+          setAllData={setAllData}
         />
+        <div className="flex justify-between px-20">
+          <input
+            type="submit"
+            value="Create"
+            className="text-slate-50 bg-blue-600 w-20   h-10 rounded-md cursor-pointer"
+          />
+          <input
+            type="button"
+            value="Preview"
+            className="mb-[50vh] text-slate-50 bg-green-500 w-20 h-10 rounded-md cursor-pointer"
+          />
+        </div>
       </form>
     </div>
   );
