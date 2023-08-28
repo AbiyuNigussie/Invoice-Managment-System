@@ -4,20 +4,21 @@ import { DataList } from "react-datalist-field";
 
 const AddProduct = (props) => {
   const [currentId, setCurrentId] = useState(0);
-  const [total, settotal] = useState(0);
+  const [total, setTotal] = useState(0);
   const onAdd = () => {
     props.setSelectedProducts([
       ...props.selectedProducts,
       { ...props.selectedProduct, id: currentId },
     ]);
+    props.setAllData((prevState) => ({
+      ...prevState,
+      selected_products: props.selectedProducts,
+    }));
     setCurrentId(currentId + 1);
-    console.log(props.selectedProduct);
-    console.log(props.selectedProducts);
   };
 
   const onDelete = (event) => {
     const value = parseInt(event.target.id);
-    console.log(value);
     props.setSelectedProducts((prevStates) =>
       prevStates.filter((item) => item.id !== value)
     );
@@ -40,7 +41,7 @@ const AddProduct = (props) => {
     });
   };
   useEffect(() => {
-    settotal(
+    setTotal(
       props.selectedProducts.reduce((a, b) => {
         return a + b.quantity * b.price;
       }, 0)
@@ -48,7 +49,7 @@ const AddProduct = (props) => {
   }, [props.selectedProducts]);
 
   return (
-    <div className="flex flex-col gap-8 p-10 border-solid border border-sky-500 rounded-md mb-[100vh]">
+    <div className="flex flex-col gap-8 p-10 border-solid border border-sky-500 rounded-md">
       <div>
         <p className="text-2xl text-gray-500 font-sans">PRODUCTS</p>
       </div>
@@ -78,6 +79,7 @@ const AddProduct = (props) => {
             <button
               className="h-10 px-5 bg-blue-500 border-r border-y border-slate-900 rounded-md "
               onClick={onAdd}
+              type="button"
             >
               <IoIosAdd className="text-slate-100 text-3xl" />
             </button>
@@ -117,8 +119,8 @@ const AddProduct = (props) => {
             ))}
         </div>
         <div className="container flex flex-col">
-          <p>Total: {total.toFixed(2)} Birr</p>
-          <p>Tax(15%): {(total * 0.15).toFixed(2)} Birr </p>
+          <p>sub-total: {total.toFixed(2)} Birr</p>
+          <p>tax(15%): {(total * 0.15).toFixed(2)} Birr </p>
           <p className="font-bold">
             total: {(total - total * 0.15).toFixed(2)} Birr
           </p>
