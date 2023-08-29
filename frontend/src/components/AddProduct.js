@@ -10,6 +10,7 @@ const AddProduct = (props) => {
       ...props.selectedProducts,
       { ...props.selectedProduct, id: currentId },
     ]);
+    console.log(props.selectedProducts);
     props.setAllData((prevState) => ({
       ...prevState,
       selected_products: props.selectedProducts,
@@ -27,7 +28,7 @@ const AddProduct = (props) => {
   const handleChange = (event) => {
     const selectedElement = document.getElementsByName("selectedCard")[0];
     const updatedValue = {};
-
+    console.log(selectedElement);
     if (event) {
       const name = event.target.name || "";
       const value = event.target.value || "";
@@ -36,7 +37,7 @@ const AddProduct = (props) => {
 
     props.setSelectedProduct({
       ...props.selectedProduct,
-      ...props.products[selectedElement.value - 1],
+      ...props.products.find((item) => item.sku === selectedElement.value),
       ...updatedValue,
     });
   };
@@ -61,7 +62,7 @@ const AddProduct = (props) => {
           <div className="flex gap-4">
             <DataList
               options={props.products}
-              id="id"
+              id="sku"
               left="name"
               selectedId=""
               selectedIdName="selectedCard"
