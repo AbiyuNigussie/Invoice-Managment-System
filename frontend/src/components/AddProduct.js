@@ -14,6 +14,8 @@ const AddProduct = (props) => {
     props.setAllData((prevState) => ({
       ...prevState,
       selected_products: props.selectedProducts,
+      sub_total: total,
+      total: (total + total * 0.15).toFixed(2),
     }));
     setCurrentId(currentId + 1);
   };
@@ -123,7 +125,7 @@ const AddProduct = (props) => {
           <p>sub-total: {total.toFixed(2)} Birr</p>
           <p>tax(15%): {(total * 0.15).toFixed(2)} Birr </p>
           <p className="font-bold">
-            total: {(total - total * 0.15).toFixed(2)} Birr
+            total: {(total + total * 0.15).toFixed(2)} Birr
           </p>
         </div>
       </div>

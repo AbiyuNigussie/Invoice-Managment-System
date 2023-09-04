@@ -4,6 +4,7 @@ import Layout from "./components/Layout/Layout";
 import LoginPage from "./pages/LoginPage";
 import CreateInvoicePage from "./pages/CreateInvoicePage";
 import CreateProductPage from "./pages/CreateProductPage";
+import InvoicePrintPreview from "./components/InvoicePrintPreview";
 function App() {
   return (
     <div className="App">
@@ -36,6 +37,7 @@ function App() {
             </Layout>
           }
         />
+        <Route path="/preview" element={<InvoicePrintPreview />} />
       </Routes>
     </div>
   );

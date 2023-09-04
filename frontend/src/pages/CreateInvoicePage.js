@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component, useRef } from "react";
 import { IoIosAdd } from "react-icons/io";
+import { useReactToPrint } from "react-to-print";
+
 import { getAllProducts } from "../services/ProductService";
 import AddProduct from "../components/AddProduct";
+import InvoicePrintPreview from "../components/InvoicePrintPreview";
 
 const CreateInvoicePage = () => {
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const [alldata, setAllData] = useState({});
+  const componentRef = useRef();
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -26,6 +30,10 @@ const CreateInvoicePage = () => {
     // }));
     console.log(alldata);
   };
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   useEffect(() => {
     let res = getAllProducts();
@@ -103,10 +111,14 @@ const CreateInvoicePage = () => {
             value="Create"
             className="text-slate-50 bg-blue-600 w-20   h-10 rounded-md cursor-pointer"
           />
+          <div style={{ display: "none" }}>
+            <InvoicePrintPreview ref={componentRef} data={alldata} />
+          </div>
           <input
             type="button"
             value="Preview"
             className="mb-[50vh] text-slate-50 bg-green-500 w-20 h-10 rounded-md cursor-pointer"
+            onClick={handlePrint}
           />
         </div>
       </form>
