@@ -5,19 +5,14 @@ import { DataList } from "react-datalist-field";
 const AddProduct = (props) => {
   const [currentId, setCurrentId] = useState(0);
   const [total, setTotal] = useState(0);
+
   const onAdd = () => {
-    props.setSelectedProducts([
-      ...props.selectedProducts,
+    props.setSelectedProducts((prevState) => [
+      ...prevState,
       { ...props.selectedProduct, id: currentId },
     ]);
-    console.log(props.selectedProducts);
-    props.setAllData((prevState) => ({
-      ...prevState,
-      selected_products: props.selectedProducts,
-      sub_total: total,
-      total: (total + total * 0.15).toFixed(2),
-    }));
-    setCurrentId(currentId + 1);
+
+    setCurrentId((prevState) => prevState + 1);
   };
 
   const onDelete = (event) => {
@@ -30,18 +25,17 @@ const AddProduct = (props) => {
   const handleChange = (event) => {
     const selectedElement = document.getElementsByName("selectedCard")[0];
     const updatedValue = {};
-    console.log(selectedElement);
     if (event) {
       const name = event.target.name || "";
       const value = event.target.value || "";
       updatedValue[name] = value;
     }
 
-    props.setSelectedProduct({
-      ...props.selectedProduct,
+    props.setSelectedProduct((prevState) => ({
+      ...prevState,
       ...props.products.find((item) => item.sku === selectedElement.value),
       ...updatedValue,
-    });
+    }));
   };
   useEffect(() => {
     setTotal(
@@ -49,7 +43,13 @@ const AddProduct = (props) => {
         return a + b.quantity * b.price;
       }, 0)
     );
-  }, [props.selectedProducts]);
+    props.setAllData((prevState) => ({
+      ...prevState,
+      selected_products: props.selectedProducts,
+      sub_total: total,
+      total: (total + total * 0.15).toFixed(2),
+    }));
+  }, [props.selectedProducts, total, props.setAllData]);
 
   return (
     <div className="flex flex-col gap-8 p-10 border-solid border border-sky-500 rounded-md">
